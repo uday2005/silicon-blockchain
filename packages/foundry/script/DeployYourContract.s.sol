@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./DeployHelpers.s.sol";
-import "../contracts/YourContract.sol";
+// import "../contracts/YourContract.sol";
 import "../contracts/FundManager.sol";
 
 /**
@@ -26,7 +26,7 @@ contract DeployYourContract is ScaffoldETHDeploy {
      *      - Export contract addresses & ABIs to `nextjs` packages
      */
     function run() external ScaffoldEthDeployerRunner {
-        new YourContract(deployer);
+        //new YourContract(deployer);
         new FundManager();
     }
 }

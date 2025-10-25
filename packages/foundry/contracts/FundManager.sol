@@ -1,8 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-// Useful for debugging. Remove when deploying to a live network.
-import "forge-std/console.sol";
 
 // Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
 // import "@openzeppelin/contracts/access/Ownable.sol";
@@ -80,9 +78,6 @@ contract FundManager {
         require(msg.value > 0, "Donation must be greater than 0");
         organizations[_orgId].totalFunds += msg.value;
 
-        console.log("Contract balance after donation:", address(this).balance);
-        console.log("Org total funds:", organizations[_orgId].totalFunds);
-
         emit DonationReceived(_orgId, msg.sender, msg.value);
     }
 
@@ -125,23 +120,9 @@ contract FundManager {
         require(exp.status == ExpenseStatus.Pending, "Already approved");
         require(exp.amount <= org.totalFunds, "Insufficient funds");
 
-        console.log("---- APPROVING EXPENSE ----");
-        console.log("Before approval:");
-        console.log("Contract balance:", address(this).balance);
-        console.log("Org totalFunds:", org.totalFunds);
-        console.log("Expense amount:", exp.amount);
-        console.log("Vendor:", exp.vendor);
-
         exp.status = ExpenseStatus.Approved;
         org.totalFunds -= exp.amount;
         payable(exp.vendor).transfer(exp.amount);
-
-
-        console.log("After transfer:");
-        console.log("Contract balance:", address(this).balance);
-        console.log("Org totalFunds:", org.totalFunds);
-        console.log("Expense status:", uint256(exp.status));
-        console.log("---------------------------");
 
         emit ExpenseApproved(_orgId, _expenseId);
     }
