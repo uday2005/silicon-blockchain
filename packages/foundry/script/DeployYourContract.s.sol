@@ -27,6 +27,6 @@ contract DeployYourContract is ScaffoldETHDeploy {
      */
     function run() external ScaffoldEthDeployerRunner {
         new YourContract(deployer);
-        new FundManager(deployer);
+        new FundManager();
     }
 }
